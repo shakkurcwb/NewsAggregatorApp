@@ -16,7 +16,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('rss:collect')->everyFiveMinutes();
+        $schedule->command('rss:collect')->everyTwoMinutes();
         $schedule->command('telegram:handler')->everyMinute();
     }
 
