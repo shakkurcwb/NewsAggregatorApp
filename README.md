@@ -4,6 +4,8 @@ Welcome to NewsAggregatorApp project! This guide will walk you through the steps
 
 ![Main Picture](picture-4.png)
 
+![Telegram Bot](picture-5.png)
+
 ## Requirements
 
 Before you begin, make sure you have the following software installed:
@@ -17,13 +19,13 @@ Before you begin, make sure you have the following software installed:
 1. Clone the repository:
 
    ```sh
-   git clone https://github.com/your-username/your-laravel-project.git
+   git clone https://github.com/shakkurcwb/NewsAggregatorApp
    ```
 
 2. Navigate to project repository:
 
     ```sh
-    cd project
+    cd NewsAggregatorApp
     ```
 
 3. Install PHP dependencies:
@@ -58,16 +60,22 @@ Before you begin, make sure you have the following software installed:
     php artisan serve
     ```
 
-9. (Optional) Start the development task scheduler worker:
-
-    ```sh
-    php artisan schedule:work
-    ```
-
-10. (Optional) Pull the latest news using the console command:
+9. (Optional) Pull the latest news using the console command:
 
     ```sh
     php artisan rss:collect
+    ```
+
+10. (Optional) Reply to Telegram messages using the console command:
+
+    ```sh
+    php artisan telegram:handler
+    ```
+
+11. (Optional) Or run the development task scheduler worker (includes both commands - see more on `app\Console\Kernel.php`):
+
+    ```sh
+    php artisan schedule:work
     ```
 
 Now you should be able to access the project by visiting http://localhost:8000 in your web browser.

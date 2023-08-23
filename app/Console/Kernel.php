@@ -6,8 +6,6 @@ use Illuminate\Console\Scheduling\Schedule;
 
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
-use App\Console\Commands\CollectRssFeeds;
-
 class Kernel extends ConsoleKernel
 {
     /**
@@ -19,6 +17,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('rss:collect')->everyFifteenMinutes();
+        $schedule->command('telegram:handler')->everyMinute();
     }
 
     /**
