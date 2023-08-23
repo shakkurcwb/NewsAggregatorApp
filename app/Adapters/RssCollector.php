@@ -23,17 +23,24 @@ class RssCollector
         $rss = simplexml_load_file($this->rssFeed->link);
 
         foreach ($rss->channel->item as $item) {
+            $published_at = (string) $item->pubDate;
+
             // skip articles without publication date
-            if (empty((string) $item->pubDate)) {
+            if (empty($published_at)) {
                 continue;
             }
+
+            // skip old articles
+            if (now()->parse($published_at)->diffInHours() > 2) {
+                continue;
+            }            
 
             $article = Article::updateOrCreate([
                 'link' => (string) $item->guid,
             ], [
                 'title' => (string) $item->title,
                 'description' => (string) $item->description ? (string) $item->description : null,
-                'published_at' => (string) $item->pubDate,
+                'published_at' => $published_at,
             ]);
 
             $this->rssFeed->articles()->syncWithoutDetaching($article);
