@@ -47,9 +47,11 @@ class TelegramHandler extends Command
 
         $chatId = $message->getChat()->getId();
 
+        $received_at = now()->parse($message->getDate());
+
         $text = $message->getText();
 
-        if (empty($text)) {
+        if (empty($text) || $received_at->diffInMinutes() > 15) {
             return;
         }
 
