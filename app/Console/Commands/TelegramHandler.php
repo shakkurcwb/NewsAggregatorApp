@@ -11,6 +11,10 @@ use App\Models\Article;
 
 class TelegramHandler extends Command
 {
+    protected const TELEGRAM_CACHE_KEY = 'telegram_update_id';
+
+    protected const MAX_DIFF_MINUTES = 15; // 15 minutes
+
     protected $signature = 'telegram:handler';
 
     protected $description = 'Listen to Telegram messages and handle the response accordingly';
@@ -24,7 +28,7 @@ class TelegramHandler extends Command
     {
         $this->line('Processing Telegram Messages...');
 
-        $offset = Cache::get('telegram_update_id', 0);
+        $offset = Cache::get(TelegramHandler::TELEGRAM_CACHE_KEY, 0);
 
         $updates = Telegram::getUpdates(['offset' => $offset + 1]);
 
@@ -35,7 +39,7 @@ class TelegramHandler extends Command
 
             $this->line('- Processed Telegram Message: ' . $update->getMessage()->getText());
 
-            Cache::put('telegram_update_id', $update->getUpdateId());
+            Cache::put(TelegramHandler::TELEGRAM_CACHE_KEY, $update->getUpdateId());
         }
 
         return 1;
@@ -47,11 +51,17 @@ class TelegramHandler extends Command
 
         $chatId = $message->getChat()->getId();
 
-        $received_at = now()->parse($message->getDate());
-
         $text = $message->getText();
 
-        if (empty($text) || $received_at->diffInMinutes() > 15) {
+        // skip if no text
+        if (empty($text)) {
+            return;
+        }
+
+        $received_at = now()->parse($message->getDate());
+
+        // skip old messages
+        if ($received_at->diffInMinutes() > TelegramHandler::MAX_DIFF_MINUTES) {
             return;
         }
 

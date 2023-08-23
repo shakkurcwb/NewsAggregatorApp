@@ -9,6 +9,8 @@ class RssCollector
 {
     protected RssFeed $rssFeed;
 
+    protected const MAX_DIFF_MINUTES = 120; // 2 hours
+
     public function __construct(RssFeed $rssFeed)
     {
         $this->rssFeed = $rssFeed;
@@ -31,9 +33,9 @@ class RssCollector
             }
 
             // skip old articles
-            if (now()->parse($published_at)->diffInHours() > 2) {
+            if (now()->parse($published_at)->diffInMinutes() > RssCollector::MAX_DIFF_MINUTES) {
                 continue;
-            }            
+            }
 
             $article = Article::updateOrCreate([
                 'link' => (string) $item->guid,
