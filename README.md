@@ -2,7 +2,7 @@
 
 Welcome to NewsAggregatorApp project! This guide will walk you through the steps to get the project up and running on your local environment.
 
-![Main Picture](storage/app/public/picture-4.png)
+![Main Picture](picture-4.png)
 
 ## Requirements
 
@@ -86,8 +86,8 @@ This project is licensed under the MIT License.
 
 ## More Pictures
 
-![Picture 1](storage/app/public/picture-1.png)
+![Picture 1](picture-1.png)
 
-![Picture 2](storage/app/public/picture-2.png)
+![Picture 2](picture-2.png)
 
-![Picture 3](storage/app/public/picture-3.png)
+![Picture 3](picture-3.png)
