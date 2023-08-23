@@ -23,6 +23,11 @@ class RssCollector
         $rss = simplexml_load_file($this->rssFeed->link);
 
         foreach ($rss->channel->item as $item) {
+            // skip articles without publication date
+            if (empty((string) $item->pubDate)) {
+                continue;
+            }
+
             $article = Article::updateOrCreate([
                 'link' => (string) $item->guid,
             ], [
