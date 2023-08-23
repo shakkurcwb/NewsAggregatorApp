@@ -28,7 +28,10 @@
                     </td>
                     <td>{{ $feed->country }}</td>
                     <td>{{ $feed->language }}</td>
-                    <td>{{ $feed->last_pull_at ? $feed->last_pull_at->format('Y-m-d H:i:s') : '-' }}</td>
+                    <td>
+                        {{ $feed->last_pull_at ? $feed->last_pull_at->format('Y-m-d H:i:s') : '-' }}
+                        @if($feed->last_pull_at) <small>({{ $feed->last_pull_at->diffForHumans() }})</small> @endif
+                    </td>
                     <td>
                         <a href="{{ url(sprintf('/rss-feeds/%d', $feed->id)) }}" class="btn btn-sm btn-secondary">View</a>
                     </td>
