@@ -25,15 +25,17 @@ class RssCollector
         $rss = simplexml_load_file($this->rssFeed->link);
 
         foreach ($rss->channel->item as $item) {
-            $published_at = (string) $item->pubDate;
+            $published_at_str = (string) $item->pubDate;
 
             // skip articles without publication date
-            if (empty($published_at)) {
+            if (empty($published_at_str)) {
                 continue;
             }
 
+            $published_at = \Carbon\Carbon::parse($published_at_str)->setTimezone(config('app.timezone'));
+
             // skip old articles
-            if (now()->parse($published_at)->diffInMinutes() > RssCollector::MAX_DIFF_MINUTES) {
+            if ($published_at->diffInMinutes() > RssCollector::MAX_DIFF_MINUTES) {
                 continue;
             }
 
