@@ -21,7 +21,7 @@
                     <td>
                         {{ $article->published_at->format('Y-m-d H:i:s') }}
                         <small>({{ $article->published_at->diffForHumans() }})</small>
-                        @if($article->published_at->diffInMinutes() < 30) 🔥 @endif
+                        @if($article->published_at->diffInMinutes() < 15) 🔥 @endif
                     </td>
                     <td>
                         <a href="{{ url(sprintf('/articles/%d', $article->id)) }}" class="btn btn-sm btn-secondary">View</a>

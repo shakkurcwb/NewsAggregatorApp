@@ -13,7 +13,9 @@ class TelegramHandler extends Command
 {
     protected const TELEGRAM_CACHE_KEY = 'telegram_update_id';
 
-    protected const MAX_DIFF_MINUTES = 15; // 15 minutes
+    protected const OLD_MESSAGE_DIFF_MINUTES = 15; // 15 minutes
+
+    protected const HOT_ARTICLE_DIFF_MINUTES = 15; // 5 minutes
 
     protected $signature = 'telegram:handler';
 
@@ -61,7 +63,7 @@ class TelegramHandler extends Command
         $received_at = now()->parse($message->getDate());
 
         // skip old messages
-        if ($received_at->diffInMinutes() > TelegramHandler::MAX_DIFF_MINUTES) {
+        if ($received_at->diffInMinutes() > TelegramHandler::OLD_MESSAGE_DIFF_MINUTES) {
             return;
         }
 
@@ -93,7 +95,7 @@ class TelegramHandler extends Command
         }
 
         foreach ($articles as $article) {
-            $icon = $article->published_at->diffInMinutes() < 30 ? '🔥' : '📰';
+            $icon = $article->published_at->diffInMinutes() < TelegramHandler::HOT_ARTICLE_DIFF_MINUTES ? '🔥' : '📰';
 
             $timestamp = $article->published_at->diffForHumans();
 
