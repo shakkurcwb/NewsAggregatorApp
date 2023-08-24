@@ -98,14 +98,20 @@ class TelegramHandler extends Command
 
             $timestamp = $article->published_at->diffForHumans();
 
-            $text = "{$icon} {$timestamp}\n*{$article->title}*\n{$article->link}";
+            $formatted_message = "{$icon} {$timestamp}\n*{$article->title}*\n{$article->link}";
 
             Telegram::sendMessage([
                 'chat_id' => $message->getChat()->getId(),
                 'parse_mode' => 'Markdown',
-                'text' => $text,
+                'text' => $formatted_message,
             ]);
         }
+
+        Telegram::sendMessage([
+            'chat_id' => $message->getChat()->getId(),
+            'parse_mode' => 'Markdown',
+            'text' => "🧭 Follow latest news at:\n" . url("/live?search={$text}"),
+        ]);
 
         return;
     }
