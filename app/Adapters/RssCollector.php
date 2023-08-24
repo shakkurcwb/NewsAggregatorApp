@@ -18,9 +18,11 @@ class RssCollector
 
     public function collect()
     {
+        /*
         if (!$this->rssFeed->isDue()) {
             return;
         }
+        */
 
         $rss = simplexml_load_file($this->rssFeed->link);
 
@@ -32,6 +34,7 @@ class RssCollector
                 continue;
             }
 
+            // set timezone for data consistency
             $published_at = \Carbon\Carbon::parse($published_at_str)->setTimezone(config('app.timezone'));
 
             // skip old articles

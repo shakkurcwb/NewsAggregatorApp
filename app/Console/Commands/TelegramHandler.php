@@ -15,7 +15,7 @@ class TelegramHandler extends Command
 
     protected const OLD_MESSAGE_DIFF_MINUTES = 15; // 15 minutes
 
-    protected const HOT_ARTICLE_DIFF_MINUTES = 15; // 5 minutes
+    protected const HOT_ARTICLE_DIFF_MINUTES = 15; // 15 minutes
 
     protected $signature = 'telegram:handler';
 
@@ -51,8 +51,6 @@ class TelegramHandler extends Command
     {
         $message = $update->getMessage();
 
-        $chatId = $message->getChat()->getId();
-
         $text = $message->getText();
 
         // skip if no text
@@ -60,7 +58,8 @@ class TelegramHandler extends Command
             return;
         }
 
-        $received_at = now()->parse($message->getDate());
+        // set timezone for data consistency
+        $received_at = \Carbon\Carbon::parse($message->getDate())->setTimezone(config('app.timezone'));
 
         // skip old messages
         if ($received_at->diffInMinutes() > TelegramHandler::OLD_MESSAGE_DIFF_MINUTES) {
@@ -87,8 +86,8 @@ class TelegramHandler extends Command
 
         if ($articles->count() == 0) {
             Telegram::sendMessage([
-                'chat_id' => $chatId,
-                'text' => 'No articles found for your search query: ' . $text,
+                'chat_id' => $message->getChat()->getId(),
+                'text' => 'No articles found for your query: ' . $text,
             ]);
 
             return;
@@ -99,12 +98,12 @@ class TelegramHandler extends Command
 
             $timestamp = $article->published_at->diffForHumans();
 
-            $message = "{$icon} {$timestamp}\n*{$article->title}*\n{$article->link}";
+            $text = "{$icon} {$timestamp}\n*{$article->title}*\n{$article->link}";
 
             Telegram::sendMessage([
-                'chat_id' => $chatId,
+                'chat_id' => $message->getChat()->getId(),
                 'parse_mode' => 'Markdown',
-                'text' => $message,
+                'text' => $text,
             ]);
         }
 
