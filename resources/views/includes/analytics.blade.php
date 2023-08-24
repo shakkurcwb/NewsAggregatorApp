@@ -9,6 +9,6 @@
         }
         gtag('js', new Date());
 
-        gtag('config', {{ config('services.google.analytics.id') }});
+        gtag('config', '{{ config('services.google.analytics.id') }}');
     </script>
 @endif
