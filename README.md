@@ -99,3 +99,5 @@ This project is licensed under the MIT License.
 ![Picture 2](picture-2.png)
 
 ![Picture 3](picture-3.png)
+
+![Picture 6](picture-6.png)
