@@ -22,3 +22,6 @@ Route::post('/rss-feeds/{feed}/pull', [\App\Http\Controllers\RssFeedController::
 # Articles - Resources
 Route::get('/articles', [\App\Http\Controllers\ArticleController::class, 'index']);
 Route::get('/articles/{article}', [\App\Http\Controllers\ArticleController::class, 'show']);
+
+# Live Search
+Route::get('/live', [\App\Http\Controllers\LiveController::class, 'index']);

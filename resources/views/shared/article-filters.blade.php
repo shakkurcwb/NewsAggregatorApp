@@ -1,4 +1,4 @@
-<form method="get" action="#">
+<form method="get" action="{{ url('/articles') }}">
     <div class="input-group mb-2">
         <span class="input-group-text" id="search-label">Search</span>
         <input type="text" name="search" id="search" value="{{ request()->search }}"
