@@ -16,6 +16,9 @@
                 <li class="nav-item">
                     <a class="nav-link {{ request()->is('articles*') ? 'active' : '' }}" href="{{ url('/articles') }}">Articles</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->is('live') ? 'active' : '' }}" href="{{ url('/live') }}">Live News</a>
+                </li>
             </ul>
         </div>
     </div>
