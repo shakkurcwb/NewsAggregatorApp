@@ -35,7 +35,7 @@ class RssCollector
             }
 
             // set timezone for data consistency
-            $published_at = \Carbon\Carbon::parse($published_at_str)->setTimezone(config('app.timezone'));
+            $published_at = \Carbon\Carbon::parse($published_at_str, 'GMT')->setTimezone(config('app.timezone'));
 
             // skip old articles
             if ($published_at->diffInMinutes() > RssCollector::MAX_DIFF_MINUTES) {
