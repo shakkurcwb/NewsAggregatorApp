@@ -3,7 +3,11 @@
 
 <head>
     <meta charset="utf-8">
+    <meta name="description" content="Stay informed effortlessly with NewsAggregatorApp. Manage RSS feeds and track global news in real-time.">
+    <meta name="keywords" content="News, World, Live, Events, Crisis">
+    <meta name="author" content="Marlon Ferreira">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <title>{{ config('app.name') }}</title>
 
     @include('includes.analytics')
