@@ -2,6 +2,8 @@
 
 namespace App\Adapters;
 
+use Illuminate\Support\Facades\Log;
+
 use App\Models\RssFeed;
 use App\Models\Article;
 
@@ -24,7 +26,12 @@ class RssCollector
         }
         */
 
-        $rss = simplexml_load_file($this->rssFeed->link);
+        try {
+            $rss = simplexml_load_file($this->rssFeed->link);
+        } catch (\Exception $e) {
+            Log::error("RssCollector error for {$this->rssFeed->link}: {$e->getMessage()}");
+            return;
+        }
 
         foreach ($rss->channel->item as $item) {
             $published_at_str = (string) $item->pubDate;
