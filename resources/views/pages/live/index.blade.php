@@ -26,7 +26,7 @@
                                     <p class="fw-bolder">{{ $article->rssFeeds->first()->title }}</p>
                                 </div>
                                 <div class="col-sm-12 col-md-10">
-                                    <p class="d-none d-sm-block fw-bolder mb-0">{{ $article->rssFeeds->first()->title }}</p>
+                                    <p class="d-block d-sm-block d-md-none fw-bolder mb-0">{{ $article->rssFeeds->first()->title }}</p>
                                     <p class="text-muted">
                                         {{ $article->published_at->format('Y-m-d H:i:s') }}
                                         <small>({{ $article->published_at->diffForHumans() }})</small>
