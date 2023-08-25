@@ -235,7 +235,7 @@ class DatabaseSeeder extends Seeder
             'country' => 'BR',
             'language' => 'pt',
             'tags' => 'gazeta do povo, br news, brazil, parana, world news',
-            'image_url' => 'http://www.logiarquitetura.com.br/wp-content/uploads/2015/01/LOGO-meta-image-gazeta-do-povo.jpg',
+            'image_url' => 'https://play-lh.googleusercontent.com/cMaCGsrGtrxRjYIzQlNpvJBz1Mz8GpNIAOiXP459fdVzyJ76oFU7OI7mDc66WHL9fg=w240-h480-rw',
             'pulling_frequency' => 5,
         ]);
 
