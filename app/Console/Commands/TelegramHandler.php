@@ -80,7 +80,12 @@ class TelegramHandler extends Command
                 ->orWhere($filter_rss_feeds);
         };
 
-        $articles = Article::with('rssFeeds')->where($filter_articles)->orderBy('published_at', 'desc')->paginate(4);
+        $filter = $filter_articles;
+        if (strtolower($text) == 'latest') {
+            $filter = function () {};
+        }
+
+        $articles = Article::with('rssFeeds')->where($filter)->orderBy('published_at', 'desc')->paginate(4);
 
         $this->line('- Found ' . $articles->count() . 'x articles for query: ' . $text);
 
@@ -107,10 +112,15 @@ class TelegramHandler extends Command
             ]);
         }
 
+        $query = sprintf("?search=%s", urlencode($text));
+        if (strtolower($text) == 'latest') {
+            $query = '';
+        }
+
         Telegram::sendMessage([
             'chat_id' => $message->getChat()->getId(),
             'parse_mode' => 'Markdown',
-            'text' => "🧭 Follow latest news at:\n" . url("/live?search={$text}"),
+            'text' => "🧭 Follow latest news at:\n" . url("/live{$query}"),
         ]);
 
         return;
