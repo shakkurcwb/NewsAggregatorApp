@@ -2,6 +2,8 @@
 
 Welcome to NewsAggregatorApp project! This guide will walk you through the steps to get the project up and running on your local environment.
 
+Check [https://newsaggregator.app](https://newsaggregator.app) for the live demo.
+
 ![Main Picture](picture-4.png)
 
 ![Telegram Bot](picture-5.png)
