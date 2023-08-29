@@ -22,7 +22,11 @@ class LiveController extends Controller
             }
         };
 
-        $articles = Article::with('rssFeeds')->where($filter)->orderBy('published_at', 'desc')->simplePaginate(12);
+        $ignore = function ($query) {
+            $query->where('published_at', '<=', now());
+        };
+
+        $articles = Article::with('rssFeeds')->where($filter)->where($ignore)->orderBy('published_at', 'desc')->simplePaginate(12);
 
         return view('pages.live.index', compact('articles'));
     }
