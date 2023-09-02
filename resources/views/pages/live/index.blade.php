@@ -2,7 +2,19 @@
 
 @section('body')
     <div class="container">
-        <h1>Live News</h1>
+        <div class="d-flex justify-content-between align-items-center">
+            <h1>Live News</h1>
+            <div class="d-none d-md-block">
+                <a target="_blank" href="https://t.me/NewsAlligatorBot">
+                    <img src="https://img.shields.io/badge/Telegram-News%20Aggregator%20Bot-blue?style=for-the-badge&logo=telegram" />
+                </a>
+            </div>
+            <div class="d-block d-md-none">
+                <a target="_blank" href="https://t.me/NewsAlligatorBot">
+                    <img style="width: 24px;" src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Telegram_logo.svg/512px-Telegram_logo.svg.png?20220101141644" />
+                </a>
+            </div>
+        </div>
         <form method="get" action="{{ url('/live') }}">
             <div class="input-group mb-2">
                 <input type="text" name="search" id="search" value="{{ request()->search }}"
