@@ -50,7 +50,7 @@ class RssCollector
             }
 
             $article = Article::updateOrCreate([
-                'link' => (string) $item->guid,
+                'link' => !empty((string) $item->link) ? (string) $item->link : (string) $item->guid,
             ], [
                 'title' => (string) $item->title,
                 'description' => (string) $item->description ? (string) $item->description : null,
