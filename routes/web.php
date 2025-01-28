@@ -2,10 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::redirect('/', '/home');
-
-# Home Page
-Route::get('/home', [\App\Http\Controllers\HomeController::class, 'index']);
+Route::redirect('/', '/live');
 
 # Rss Feeds - Resources
 Route::get('/rss-feeds', [\App\Http\Controllers\RssFeedController::class, 'index']);
